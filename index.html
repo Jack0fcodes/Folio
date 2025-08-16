@@ -3,23 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Portfolio</title>
+<title>Jackfolio</title>
 <style>
   body {
     background-color: #1c1c1c;
     color: #fff;
     font-family: sans-serif;
     margin: 0;
-    padding: 20px;
-    text-align: center;
+    padding: 0;
   }
-  h1 {
-    margin-bottom: 20px;
+
+  /* Top Navigation */
+  header {
+    background: #111;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
-  /* Masonry-style gallery */
+  header h1 {
+    margin: 0;
+    font-size: 20px;
+  }
+  nav a {
+    color: #fff;
+    margin-left: 20px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s;
+  }
+  nav a:hover {
+    color: #00bfff;
+  }
+
+  /* Gallery */
   .gallery {
-    column-count: 3;       /* number of columns */
-    column-gap: 15px;      /* space between columns */
+    column-count: 3;
+    column-gap: 15px;
+    padding: 20px;
   }
   .gallery img {
     width: 100%;
@@ -46,7 +67,7 @@
     }
   }
 
-  /* Lightbox overlay */
+  /* Lightbox */
   .lightbox {
     display: none;
     position: fixed;
@@ -64,11 +85,38 @@
     max-height: 90%;
     border-radius: 10px;
   }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 15px;
+    background: #111;
+    font-size: 14px;
+    color: #bbb;
+  }
+  footer a {
+    color: #bbb;
+    margin: 0 10px;
+    text-decoration: none;
+  }
+  footer a:hover {
+    color: #00bfff;
+  }
 </style>
 </head>
 <body>
 
-<h1>My Portfolio</h1>
+<!-- Header -->
+<header>
+  <h1>Jackfolio</h1>
+  <nav>
+    <a href="#">About</a>
+    <a href="#">Sketch</a>
+    <a href="#">Personal</a>
+  </nav>
+</header>
+
+<!-- Gallery -->
 <div class="gallery">
   <img src="images/art1.png" alt="Artwork 1">
   <img src="images/art2.png" alt="Artwork 2">
@@ -83,6 +131,14 @@
 <div class="lightbox" id="lightbox">
   <img id="lightbox-img" src="" alt="">
 </div>
+
+<!-- Footer -->
+<footer>
+  © Jack 2025 — 
+  <a href="https://twitter.com/" target="_blank">Twitter</a> • 
+  <a href="https://instagram.com/" target="_blank">Instagram</a> • 
+  <a href="https://facebook.com/" target="_blank">Facebook</a>
+</footer>
 
 <script>
   const lightbox = document.getElementById("lightbox");
