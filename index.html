@@ -16,18 +16,29 @@
   h1 {
     margin-bottom: 20px;
   }
+  /* Masonry-style gallery */
   .gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
+    column-count: 3;       /* number of columns */
+    column-gap: 15px;      /* space between columns */
   }
   .gallery img {
-    width: 100%;
+    width: 100%;           /* fit column width */
+    margin-bottom: 15px;   /* space below each image */
     border-radius: 8px;
-    transition: transform 0.3s ease;
+    display: block;
+    break-inside: avoid;   /* prevents image splitting */
   }
-  .gallery img:hover {
-    transform: scale(1.05);
+
+  /* Responsive tweak */
+  @media (max-width: 800px) {
+    .gallery {
+      column-count: 2;
+    }
+  }
+  @media (max-width: 500px) {
+    .gallery {
+      column-count: 1;
+    }
   }
 </style>
 </head>
@@ -35,18 +46,15 @@
 
 <h1>My Portfolio</h1>
 <div class="gallery">
-  <img src="https://picsum.photos/400/300?random=1" alt="Portfolio Image 1">
-  <img src="https://picsum.photos/400/300?random=2" alt="Portfolio Image 2">
-  <img src="https://picsum.photos/400/300?random=3" alt="Portfolio Image 3">
-  <img src="https://picsum.photos/400/300?random=4" alt="Portfolio Image 4">
-  <img src="https://picsum.photos/400/300?random=5" alt="Portfolio Image 5">
-  <img src="https://picsum.photos/400/300?random=6" alt="Portfolio Image 6">
-  <img src="https://picsum.photos/400/300?random=7" alt="Portfolio Image 7">
-  <img src="https://picsum.photos/400/300?random=8" alt="Portfolio Image 8">
-  <img src="https://picsum.photos/400/300?random=9" alt="Portfolio Image 9">
-  <img src="https://picsum.photos/400/300?random=10" alt="Portfolio Image 10">
-  <img src="https://picsum.photos/400/300?random=11" alt="Portfolio Image 11">
-  <img src="https://picsum.photos/400/300?random=12" alt="Portfolio Image 12">
+  <img src="https://picsum.photos/id/1018/400/600" alt="Image 1">
+  <img src="https://picsum.photos/id/1025/600/400" alt="Image 2">
+  <img src="https://picsum.photos/id/1039/400/500" alt="Image 3">
+  <img src="https://picsum.photos/id/1040/500/700" alt="Image 4">
+  <img src="https://picsum.photos/id/1050/700/500" alt="Image 5">
+  <img src="https://picsum.photos/id/1062/500/400" alt="Image 6">
+  <img src="https://picsum.photos/id/1074/400/600" alt="Image 7">
+  <img src="https://picsum.photos/id/1084/600/500" alt="Image 8">
+  <img src="https://picsum.photos/id/1080/400/400" alt="Image 9">
 </div>
 
 </body>
