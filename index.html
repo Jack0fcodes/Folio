@@ -1,161 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jackfolio</title>
-<style>
-  body {
-    background-color: #1c1c1c;
-    color: #fff;
-    font-family: sans-serif;
-    margin: 0;
-    padding: 0;
-  }
-
-  /* Top Navigation */
-  header {
-    background: #111;
-    padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  header h1 {
-    margin: 0;
-    font-size: 20px;
-  }
-  nav a {
-    color: #fff;
-    margin-left: 20px;
-    text-decoration: none;
-    font-size: 16px;
-    transition: color 0.3s;
-  }
-  nav a:hover {
-    color: #00bfff;
-  }
-
-  /* Gallery */
-  .gallery {
-    column-count: 3;
-    column-gap: 15px;
-    padding: 20px;
-  }
-  .gallery img {
-    width: 100%;
-    margin-bottom: 15px;
-    border-radius: 8px;
-    display: block;
-    break-inside: avoid;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-  }
-  .gallery img:hover {
-    transform: scale(1.05);
-  }
-
-  /* Responsive tweak */
-  @media (max-width: 800px) {
-    .gallery {
-      column-count: 2;
-    }
-  }
-  @media (max-width: 500px) {
-    .gallery {
-      column-count: 1;
-    }
-  }
-
-  /* Lightbox */
-  .lightbox {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.8);
-    justify-content: center;
-    align-items: center;
-  }
-  .lightbox img {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 10px;
-  }
-
-  /* Footer */
-  footer {
-    text-align: center;
-    padding: 15px;
-    background: #111;
-    font-size: 14px;
-    color: #bbb;
-  }
-  footer a {
-    color: #bbb;
-    margin: 0 10px;
-    text-decoration: none;
-  }
-  footer a:hover {
-    color: #00bfff;
-  }
-</style>
+  <meta charset="UTF-8">
+  <title>Jackfolio</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- Header -->
 <header>
   <h1>Jackfolio</h1>
   <nav>
-    <a href="#">About</a>
-    <a href="#">Sketch</a>
-    <a href="#">Personal</a>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="sketch.html">Sketch</a>
+    <a href="personal.html">Personal</a>
   </nav>
 </header>
 
-<!-- Gallery -->
 <div class="gallery">
   <img src="images/art1.png" alt="Artwork 1">
   <img src="images/art2.png" alt="Artwork 2">
   <img src="images/art3.png" alt="Artwork 3">
-  <img src="images/art4.png" alt="Artwork 4">
-  <img src="images/art5.png" alt="Artwork 5">
-  <img src="images/art6.jpg" alt="Artwork 6">
-  <img src="images/art7.jpg" alt="Artwork 7">
+  <!-- add more -->
 </div>
 
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox">
-  <img id="lightbox-img" src="" alt="">
-</div>
-
-<!-- Footer -->
 <footer>
   © Jack 2025 — 
-  <a href="https://twitter.com/" target="_blank">Twitter</a> • 
-  <a href="https://instagram.com/" target="_blank">Instagram</a> • 
-  <a href="https://facebook.com/" target="_blank">Facebook</a>
+  <a href="https://twitter.com/">Twitter</a> |
+  <a href="https://instagram.com/">Instagram</a> |
+  <a href="https://facebook.com/">Facebook</a>
 </footer>
-
-<script>
-  const lightbox = document.getElementById("lightbox");
-  const lightboxImg = document.getElementById("lightbox-img");
-
-  document.querySelectorAll(".gallery img").forEach(img => {
-    img.addEventListener("click", () => {
-      lightbox.style.display = "flex";
-      lightboxImg.src = img.src;
-    });
-  });
-
-  // close on click outside
-  lightbox.addEventListener("click", () => {
-    lightbox.style.display = "none";
-  });
-</script>
 
 </body>
 </html>
