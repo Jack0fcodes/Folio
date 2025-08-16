@@ -3,40 +3,30 @@ body {
   color: #fff;
   font-family: sans-serif;
   margin: 0;
-  padding: 0;
+  padding: 20px;
   text-align: center;
 }
 
-header {
-  background: #111;
-  padding: 20px;
-}
-
 header h1 {
-  margin: 0;
+  margin-bottom: 10px;
 }
 
 nav {
-  margin-top: 10px;
+  margin-bottom: 20px;
 }
-
 nav a {
   color: #fff;
+  margin: 0 10px;
   text-decoration: none;
-  margin: 0 15px;
-  font-weight: bold;
 }
-
 nav a:hover {
-  color: #1e90ff;
+  text-decoration: underline;
 }
 
 .gallery {
   column-count: 3;
   column-gap: 15px;
-  padding: 20px;
 }
-
 .gallery img {
   width: 100%;
   margin-bottom: 15px;
@@ -46,26 +36,8 @@ nav a:hover {
   transition: transform 0.3s;
   cursor: pointer;
 }
-
 .gallery img:hover {
   transform: scale(1.05);
-}
-
-footer {
-  background: #111;
-  padding: 15px;
-  margin-top: 30px;
-  font-size: 0.9em;
-}
-
-footer a {
-  color: #1e90ff;
-  margin: 0 10px;
-  text-decoration: none;
-}
-
-footer a:hover {
-  text-decoration: underline;
 }
 
 @media (max-width: 800px) {
@@ -73,4 +45,17 @@ footer a:hover {
 }
 @media (max-width: 500px) {
   .gallery { column-count: 1; }
+}
+
+footer {
+  margin-top: 30px;
+  font-size: 14px;
+  color: #aaa;
+}
+footer a {
+  color: #aaa;
+  text-decoration: none;
+}
+footer a:hover {
+  text-decoration: underline;
 }
