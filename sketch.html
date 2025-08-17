@@ -5,6 +5,41 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jackfolio - Sketch</title>
 <link rel="stylesheet" href="style.css">
+<style>
+  /* Lightbox styling */
+  .lightbox {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .lightbox img {
+    max-width: 90%;
+    max-height: 80%;
+    border-radius: 8px;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    user-select: none;
+    z-index: 1001;
+  }
+
+  .close-btn:hover {
+    color: #aaa;
+  }
+</style>
 </head>
 <body>
 
@@ -18,10 +53,12 @@
   </nav>
 </header>
 
-<div class="gallery">
-  <img src="images/sketch1.png" alt="Sketch 1">
-  <img src="images/sketch2.png" alt="Sketch 2">
-  <img src="images/sketch3.png" alt="Sketch 3">
+<div class="gallery" id="sketch-gallery"></div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <span class="close-btn" id="close-btn">&times;</span>
+  <img id="lightbox-img" src="" alt="">
 </div>
 
 <footer>
@@ -32,6 +69,54 @@
     <a href="#">Facebook</a>
   </p>
 </footer>
+
+<script>
+  const gallery = document.getElementById("sketch-gallery");
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+  const closeBtn = document.getElementById("close-btn");
+
+  // ✅ GitHub API for your sketch folder
+  const apiURL = "https://api.github.com/repos/jack0fcodes/Folio/contents/sketch";
+
+  fetch(apiURL)
+    .then(res => res.json())
+    .then(files => {
+      let sketches = files.filter(file => file.name.match(/\.(png|jpg|jpeg|gif)$/i));
+
+      // sort alphabetically (sketch1, sketch2, etc.)
+      sketches.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' }));
+
+      sketches.forEach((file, index) => {
+        const img = document.createElement("img");
+        img.src = file.download_url;
+        img.alt = "Sketch " + (index + 1);
+        gallery.appendChild(img);
+
+        // open lightbox on click
+        img.addEventListener("click", () => {
+          lightbox.style.display = "flex";
+          lightboxImg.src = img.src;
+        });
+      });
+    })
+    .catch(err => {
+      console.error("Error fetching sketches:", err);
+      gallery.innerHTML = "<p>⚠️ Could not load sketches.</p>";
+    });
+
+  // close on outside click
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) {
+      lightbox.style.display = "none";
+    }
+  });
+
+  // close on X
+  closeBtn.addEventListener("click", () => {
+    lightbox.style.display = "none";
+  });
+</script>
 
 </body>
 </html>
