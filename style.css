@@ -21,7 +21,7 @@ nav a {
   transition: color 0.3s;
 }
 nav a:hover {
-  color: blue; /* turn blue on hover */
+  color: #3B82F6; /* turn blue on hover */
   text-decoration: none; /* remove underline */
 }
 
@@ -60,6 +60,6 @@ footer a {
   transition: color 0.3s;
 }
 footer a:hover {
-  color: blue; /* turn blue on hover */
+  color: #3B82F6;/* turn blue on hover */
   text-decoration: none; /* remove underline */
 }
