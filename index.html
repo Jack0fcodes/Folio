@@ -54,11 +54,7 @@
   </nav>
 </header>
 
-<div class="gallery">
-  <img src="images/art1.png" alt="Artwork 1">
-  <img src="images/art2.png" alt="Artwork 2">
-  <img src="images/art3.png" alt="Artwork 3">
-</div>
+<div class="gallery" id="gallery"></div>
 
 <!-- Lightbox -->
 <div class="lightbox" id="lightbox">
@@ -76,25 +72,50 @@
 </footer>
 
 <script>
+  const gallery = document.getElementById("gallery");
   const lightbox = document.getElementById("lightbox");
   const lightboxImg = document.getElementById("lightbox-img");
   const closeBtn = document.getElementById("close-btn");
 
-  document.querySelectorAll(".gallery img").forEach(img => {
-    img.addEventListener("click", () => {
-      lightbox.style.display = "flex";
-      lightboxImg.src = img.src;
-    });
-  });
+  // ✅ GitHub API for jack0fcodes/Folio
+  const apiURL = "https://api.github.com/repos/jack0fcodes/Folio/contents/images";
 
-  // close on clicking outside image
+  fetch(apiURL)
+    .then(res => res.json())
+    .then(files => {
+      // filter images only
+      let imageFiles = files.filter(file => file.name.match(/\.(png|jpg|jpeg|gif)$/i));
+
+      // ✅ sort alphabetically (art1, art2, art3...)
+      imageFiles.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' }));
+
+      // display them
+      imageFiles.forEach((file, index) => {
+        const img = document.createElement("img");
+        img.src = file.download_url;
+        img.alt = "Artwork " + (index + 1);
+        gallery.appendChild(img);
+
+        // click → lightbox
+        img.addEventListener("click", () => {
+          lightbox.style.display = "flex";
+          lightboxImg.src = img.src;
+        });
+      });
+    })
+    .catch(err => {
+      console.error("Error fetching images:", err);
+      gallery.innerHTML = "<p>⚠️ Could not load images.</p>";
+    });
+
+  // close on outside click
   lightbox.addEventListener("click", (e) => {
     if (e.target === lightbox) {
       lightbox.style.display = "none";
     }
   });
 
-  // close on X button
+  // close on X
   closeBtn.addEventListener("click", () => {
     lightbox.style.display = "none";
   });
