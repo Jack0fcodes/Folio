@@ -3,21 +3,70 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jackfolio</title>
-<link rel="stylesheet" href="style.css">
+<title>My Portfolio</title>
+<style>
+  body {
+    background-color: #1c1c1c;
+    color: #fff;
+    font-family: sans-serif;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+  }
+  h1 {
+    margin-bottom: 20px;
+  }
+  /* Masonry-style gallery */
+  .gallery {
+    column-count: 3;       /* number of columns */
+    column-gap: 15px;      /* space between columns */
+  }
+  .gallery img {
+    width: 100%;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    display: block;
+    break-inside: avoid;
+    cursor: pointer; /* makes it clear it's clickable */
+    transition: transform 0.3s ease;
+  }
+  .gallery img:hover {
+    transform: scale(1.05);
+  }
+
+  /* Lightbox styles */
+  .lightbox {
+    display: none; /* hidden by default */
+    position: fixed;
+    z-index: 1000;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+  }
+  .lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 8px;
+  }
+
+  /* Responsive tweak */
+  @media (max-width: 800px) {
+    .gallery {
+      column-count: 2;
+    }
+  }
+  @media (max-width: 500px) {
+    .gallery {
+      column-count: 1;
+    }
+  }
+</style>
 </head>
 <body>
 
-<header>
-  <h1>Jackfolio</h1>
-  <nav>
-    <a href="index.html">Gallery</a>
-    <a href="sketch.html">Sketch</a>
-    <a href="about.html">About</a>
-    <a href="personal.html">Personal</a>
-  </nav>
-</header>
-
+<h1>My Portfolio</h1>
 <div class="gallery">
   <img src="images/art1.png" alt="Artwork 1">
   <img src="images/art2.png" alt="Artwork 2">
@@ -28,14 +77,27 @@
   <img src="images/art7.jpg" alt="Artwork 7">
 </div>
 
-<footer>
-  <p>© Jack 2025</p>
-  <p>
-    <a href="#">Twitter</a> |
-    <a href="#">Instagram</a> |
-    <a href="#">Facebook</a>
-  </p>
-</footer>
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+
+  document.querySelectorAll(".gallery img").forEach(img => {
+    img.addEventListener("click", () => {
+      lightbox.style.display = "flex";
+      lightboxImg.src = img.src;
+    });
+  });
+
+  // close on click outside
+  lightbox.addEventListener("click", () => {
+    lightbox.style.display = "none";
+  });
+</script>
 
 </body>
 </html>
