@@ -18,9 +18,11 @@ nav a {
   color: #fff;
   margin: 0 10px;
   text-decoration: none;
+  transition: color 0.3s;
 }
 nav a:hover {
-  text-decoration: underline;
+  color: blue; /* turn blue on hover */
+  text-decoration: none; /* remove underline */
 }
 
 .gallery {
@@ -55,7 +57,9 @@ footer {
 footer a {
   color: #aaa;
   text-decoration: none;
+  transition: color 0.3s;
 }
 footer a:hover {
-  text-decoration: underline;
+  color: blue; /* turn blue on hover */
+  text-decoration: none; /* remove underline */
 }
