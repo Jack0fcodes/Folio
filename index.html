@@ -40,6 +40,12 @@
   .close-btn:hover {
     color: #aaa;
   }
+
+  /* Optional: make video look nice */
+  .gallery video {
+    margin: 5px;
+    border-radius: 8px;
+  }
 </style>
 </head>
 <body>
@@ -77,30 +83,39 @@
   const lightboxImg = document.getElementById("lightbox-img");
   const closeBtn = document.getElementById("close-btn");
 
-  // ✅ GitHub API for jack0fcodes/Folio
   const apiURL = "https://api.github.com/repos/jack0fcodes/Folio/contents/images";
 
   fetch(apiURL)
     .then(res => res.json())
     .then(files => {
-      // filter images only
+      // filter images and mp4 videos
       let imageFiles = files.filter(file => file.name.match(/\.(png|jpg|jpeg|gif|mp4)$/i));
 
-      // ✅ sort alphabetically (art1, art2, art3...)
+      // sort alphabetically
       imageFiles.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' }));
 
       // display them
       imageFiles.forEach((file, index) => {
-        const img = document.createElement("img");
-        img.src = file.download_url;
-        img.alt = "Artwork " + (index + 1);
-        gallery.appendChild(img);
+        if (file.name.match(/\.mp4$/i)) {
+          // create video element
+          const video = document.createElement("video");
+          video.src = file.download_url;
+          video.controls = true;
+          video.width = 200; // adjust size as needed
+          gallery.appendChild(video);
+        } else {
+          // create image element
+          const img = document.createElement("img");
+          img.src = file.download_url;
+          img.alt = "Artwork " + (index + 1);
+          gallery.appendChild(img);
 
-        // click → lightbox
-        img.addEventListener("click", () => {
-          lightbox.style.display = "flex";
-          lightboxImg.src = img.src;
-        });
+          // click → lightbox
+          img.addEventListener("click", () => {
+            lightbox.style.display = "flex";
+            lightboxImg.src = img.src;
+          });
+        }
       });
     })
     .catch(err => {
