@@ -84,7 +84,7 @@
     .then(res => res.json())
     .then(files => {
       // filter images only
-      let imageFiles = files.filter(file => file.name.match(/\.(png|jpg|jpeg|gif)$/i));
+      let imageFiles = files.filter(file => file.name.match(/\.(png|jpg|jpeg|gif|mp4)$/i));
 
       // ✅ sort alphabetically (art1, art2, art3...)
       imageFiles.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' }));
