@@ -1,104 +1,157 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const lockedPages = ["personal.html", "sketch.html"]; // pages to lock
-  const currentPage = window.location.pathname.split("/").pop();
+// lock.js
+const lockedPages = ["personal.html", "sketch.html"]; 
+const password = "1234";
+let attempts = 0;
 
-  if (lockedPages.includes(currentPage)) {
+const currentPage = window.location.pathname.split("/").pop();
+
+if (lockedPages.includes(currentPage)) {
     const overlay = document.createElement("div");
     overlay.id = "lock-overlay";
-    overlay.innerHTML = `
-      <div class="lock-container">
-        <div class="lock-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10" stroke="black" stroke-width="2.5" fill="none"/>
-            <path d="M12 17a2 2 0 002-2v-2a2 2 0 00-4 0v2a2 2 0 002 2z" fill="black"/>
-            <rect x="9" y="10" width="6" height="5" rx="1" fill="black"/>
-          </svg>
-        </div>
-        <input type="password" id="password-input" placeholder="Password">
-        <button id="password-btn">
-          <!-- ✅ your original arrow -->
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="black" viewBox="0 0 24 24">
-            <path d="M12 4l1.41 1.41L8.83 10H20v2H8.83l4.58 4.59L12 18l-8-8 8-8z" transform="rotate(180, 12, 12)"/>
-          </svg>
-        </button>
-        <p id="error-msg">Incorrect password</p>
-      </div>
-    `;
-    document.body.appendChild(overlay);
-
-    const style = document.createElement("style");
-    style.textContent = `
-      #lock-overlay {
+    overlay.style.cssText = `
         position: fixed;
-        inset: 0;
-        background: white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-      }
-      .lock-container {
-        text-align: center;
-        font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-      }
-      .lock-icon {
-        margin-bottom: 20px;
-      }
-      #password-input {
-        padding: 10px;
-        font-size: 16px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        outline: none;
-        margin-right: 10px;
-      }
-      #password-btn {
-        background: none;
-        border: none;
-        cursor: pointer;
-        vertical-align: middle;
-      }
-      #error-msg {
-        color: red;
-        font-size: 14px;
-        margin-top: 12px;
-        opacity: 0;
-        transition: opacity 0.4s ease;
-      }
-      #error-msg.visible {
-        opacity: 1;
-      }
-      @keyframes shake {
-        0%, 100% { transform: translateX(0); }
-        20%, 60% { transform: translateX(-6px); }
-        40%, 80% { transform: translateX(6px); }
-      }
-      .shake {
-        animation: shake 0.3s;
-      }
+        top:0; left:0;
+        width:100%; height:100%;
+        background: #000;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        flex-direction:column;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        color:#fff;
+        z-index:9999;
+        opacity:0;
+        animation: fadeIn 0.6s ease forwards;
     `;
-    document.head.appendChild(style);
+
+    overlay.innerHTML = `
+        <style>
+            @keyframes fadeIn {
+                from { opacity:0; }
+                to { opacity:1; }
+            }
+            @keyframes slideUp {
+                from { transform: translateY(40px); opacity:0; }
+                to { transform: translateY(0); opacity:1; }
+            }
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                20%, 60% { transform: translateX(-10px); }
+                40%, 80% { transform: translateX(10px); }
+            }
+            #lock-container {
+                display:flex;
+                flex-direction:column;
+                align-items:center;
+                gap:1.5rem;
+                animation: slideUp 0.7s ease forwards;
+            }
+            #lock-circle {
+                width:90px; height:90px;
+                border:3.5px solid white;
+                border-radius:50%;
+                display:flex;
+                justify-content:center;
+                align-items:center;
+                animation: slideUp 0.7s ease 0.1s forwards;
+                opacity:0;
+            }
+            #lock-input-container {
+                display:flex;
+                align-items:center;
+                gap:0.5rem;
+                animation: slideUp 0.7s ease 0.2s forwards;
+                opacity:0;
+            }
+            #password-input {
+                padding:0.6rem 1rem;
+                font-size:1rem;
+                border-radius:20px;
+                border:none;
+                outline:none;
+                text-align:center;
+                width:180px;
+            }
+            #password-btn {
+                background:white;
+                border:none;
+                border-radius:50%;
+                width:42px;
+                height:42px;
+                display:flex;
+                justify-content:center;
+                align-items:center;
+                cursor:pointer;
+                transition: transform 0.2s ease;
+            }
+            #password-btn:hover {
+                transform: scale(1.1);
+            }
+            #error-msg {
+                color:#ff4d4f;
+                margin-top:0.5rem;
+                display:none;
+                font-size:0.9rem;
+            }
+            .shake {
+                animation: shake 0.4s;
+            }
+        </style>
+
+        <div id="lock-container">
+            <!-- Circle outline with filled lock -->
+            <div id="lock-circle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="white" viewBox="0 0 24 24">
+                    <path d="M12 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+                    <path fill-rule="evenodd" d="M6 9V7a6 6 0 1 1 12 0v2h1a1 1 0 0 1 1 1v11a1 
+                    1 0 0 1-1 1H5a1 1 0 0 1-1-1V10a1 1 0 0 1 1-1h1zm2-2a4 4 0 0 1 8 0v2H8V7z" clip-rule="evenodd"/>
+                </svg>
+            </div>
+
+            <!-- Input + arrow button -->
+            <div id="lock-input-container">
+                <input type="password" id="password-input" placeholder="Password">
+                <button id="password-btn">
+                    <!-- Your rotated arrow -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="black" viewBox="0 0 24 24">
+                        <path d="M12 4l1.41 1.41L8.83 10H20v2H8.83l4.58 4.59L12 18l-8-8 8-8z" transform="rotate(180, 12, 12)"/>
+                    </svg>
+                </button>
+            </div>
+
+            <p id="error-msg">Incorrect password</p>
+        </div>
+    `;
+
+    document.body.appendChild(overlay);
 
     const input = document.getElementById("password-input");
     const btn = document.getElementById("password-btn");
     const errorMsg = document.getElementById("error-msg");
+    const inputContainer = document.getElementById("lock-input-container");
 
-    function unlock() {
-      if (input.value === "1234") {
-        overlay.style.display = "none";
-      } else {
-        input.classList.add("shake");
-        errorMsg.classList.add("visible"); // fade in
-        setTimeout(() => {
-          input.classList.remove("shake");
-          errorMsg.classList.remove("visible"); // fade out
-        }, 1500);
-      }
+    function wrongPasswordEffect() {
+        errorMsg.style.display = "block";
+        inputContainer.classList.add("shake");
+        setTimeout(() => inputContainer.classList.remove("shake"), 400);
     }
 
-    btn.addEventListener("click", unlock);
-    input.addEventListener("keypress", e => {
-      if (e.key === "Enter") unlock();
+    btn.addEventListener("click", () => {
+        if(input.value === password){
+            overlay.style.opacity = "0";
+            overlay.style.transition = "opacity 0.4s ease";
+            setTimeout(() => overlay.remove(), 400);
+        } else {
+            attempts++;
+            wrongPasswordEffect();
+            if(attempts >= 3){
+                alert("Access denied. Redirecting to home page.");
+                window.location.href = "index.html";
+            }
+        }
     });
-  }
-});
+
+    input.addEventListener("keypress", (e) => {
+        if(e.key === "Enter") btn.click();
+    });
+}
