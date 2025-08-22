@@ -6,14 +6,14 @@ let attempts = 0;
 const currentPage = window.location.pathname.split("/").pop();
 
 if (lockedPages.includes(currentPage)) {
-    // Create overlay
+    // Solid black overlay
     const overlay = document.createElement("div");
     overlay.id = "lock-overlay";
     overlay.style.cssText = `
         position: fixed;
         top:0; left:0;
         width:100%; height:100%;
-        background: rgba(0,0,0,0.85);
+        background: #000; /* solid black */
         display:flex;
         justify-content:center;
         align-items:center;
@@ -24,41 +24,51 @@ if (lockedPages.includes(currentPage)) {
     `;
 
     overlay.innerHTML = `
-        <div style="
-            background: rgba(255,255,255,0.1);
-            padding: 2rem 3rem;
-            border-radius: 16px;
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            box-shadow: 0 4px 30px rgba(0,0,0,0.3);
-            backdrop-filter: blur(10px);
-        ">
-            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="feather feather-lock" viewBox="0 0 24 24">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                <path d="M7 11V7a5 5 0 0110 0v4"></path>
-            </svg>
-            <h2 style="margin:1rem 0 0.5rem 0; font-weight:400;">Enter Password</h2>
-            <input type="password" id="password-input" placeholder="Password" style="
-                padding:0.5rem 1rem;
-                font-size:1rem;
-                border-radius:8px;
-                border:none;
-                margin-top:0.5rem;
-                text-align:center;
-                width:180px;
+        <div style="display:flex; flex-direction:column; align-items:center; gap:1.5rem;">
+            <!-- Circle outline with filled lock -->
+            <div style="
+                width:90px; height:90px;
+                border:2px solid white;
+                border-radius:50%;
+                display:flex;
+                justify-content:center;
+                align-items:center;
             ">
-            <button id="password-btn" style="
-                margin-top:1rem;
-                padding:0.5rem 1rem;
-                font-size:1rem;
-                border-radius:8px;
-                border:none;
-                background:white;
-                color:black;
-                cursor:pointer;
-                width:100px;
-            ">Unlock</button>
+                <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="white" viewBox="0 0 24 24">
+                    <path d="M12 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+                    <path fill-rule="evenodd" d="M6 9V7a6 6 0 1 1 12 0v2h1a1 1 0 0 1 1 1v11a1 
+                    1 0 0 1-1 1H5a1 1 0 0 1-1-1V10a1 1 0 0 1 1-1h1zm2-2a4 4 0 0 1 8 0v2H8V7z" clip-rule="evenodd"/>
+                </svg>
+            </div>
+
+            <!-- Input + arrow button -->
+            <div style="display:flex; align-items:center; gap:0.5rem;">
+                <input type="password" id="password-input" placeholder="Password" style="
+                    padding:0.6rem 1rem;
+                    font-size:1rem;
+                    border-radius:20px;
+                    border:none;
+                    outline:none;
+                    text-align:center;
+                    width:180px;
+                ">
+                <button id="password-btn" style="
+                    background:white;
+                    border:none;
+                    border-radius:50%;
+                    width:42px;
+                    height:42px;
+                    display:flex;
+                    justify-content:center;
+                    align-items:center;
+                    cursor:pointer;
+                ">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="black" viewBox="0 0 24 24">
+                        <path d="M12 4l1.41 1.41L8.83 10H20v2H8.83l4.58 4.59L12 18l-8-8 8-8z"/>
+                    </svg>
+                </button>
+            </div>
+
             <p id="error-msg" style="color:#ff4d4f; margin-top:0.5rem; display:none; font-size:0.9rem;">Incorrect password</p>
         </div>
     `;
@@ -71,7 +81,9 @@ if (lockedPages.includes(currentPage)) {
 
     btn.addEventListener("click", () => {
         if(input.value === password){
-            overlay.style.display = "none";
+            overlay.style.opacity = "0";
+            overlay.style.transition = "opacity 0.4s ease";
+            setTimeout(() => overlay.remove(), 400);
         } else {
             attempts++;
             errorMsg.style.display = "block";
