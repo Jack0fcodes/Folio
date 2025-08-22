@@ -28,7 +28,7 @@ if (lockedPages.includes(currentPage)) {
             <!-- Circle outline with filled lock -->
             <div style="
                 width:90px; height:90px;
-                border:2px solid white;
+                border:3px solid white;   /* thicker outline */
                 border-radius:50%;
                 display:flex;
                 justify-content:center;
@@ -63,8 +63,9 @@ if (lockedPages.includes(currentPage)) {
                     align-items:center;
                     cursor:pointer;
                 ">
+                    <!-- Arrow pointing right -->
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="black" viewBox="0 0 24 24">
-                        <path d="M12 4l1.41 1.41L8.83 10H20v2H8.83l4.58 4.59L12 18l-8-8 8-8z"/>
+                        <path d="M10 17l5-5-5-5v10z"/>
                     </svg>
                 </button>
             </div>
