@@ -12,7 +12,7 @@ if (lockedPages.includes(currentPage)) {
         position: fixed;
         top:0; left:0;
         width:100%; height:100%;
-        background: #000;
+        background: #1c1c1c;
         display:flex;
         justify-content:center;
         align-items:center;
