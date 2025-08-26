@@ -88,7 +88,7 @@
   fetch(apiURL)
     .then(res => res.json())
     .then(files => {
-      let imageFiles = files.filter(file => file.name.match(/\.(png|jpg|jpeg|gif|mp4)$/i));
+      let imageFiles = files.filter(file => file.name.match(/\.(png|jpg|jpeg|gif|mov|mp4)$/i));
 
       imageFiles.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' }));
 
