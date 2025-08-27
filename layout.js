@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     transition: background 0.3s;
   `;
   layoutToggle.addEventListener("mouseenter", () => {
-    layoutToggle.style.background = "rgba(59,130,246,0.9)"; // hover blue
+    layoutToggle.style.background = "rgba(59,130,246,0.9)";
   });
   layoutToggle.addEventListener("mouseleave", () => {
     layoutToggle.style.background = "rgba(30,30,30,0.8)";
@@ -30,21 +30,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.body.appendChild(layoutToggle);
 
-  // Inject CSS for zoomed-out layout
+  // Inject CSS to control zoom via column-count
   const style = document.createElement("style");
   style.textContent = `
-    /* Zoomed-out layout (about 5 per row) */
-    .gallery.zoomed {
-      display: grid !important;
-      grid-template-columns: repeat(auto-fill, minmax(20%, 1fr)) !important;
-      gap: 10px !important;
+    /* Normal masonry (mobile = fewer columns) */
+    .gallery {
+      column-count: 1;
+      column-gap: 10px;
     }
-    .gallery.zoomed img,
-    .gallery.zoomed video {
+    @media (min-width: 600px) {
+      .gallery { column-count: 2; }
+    }
+    @media (min-width: 900px) {
+      .gallery { column-count: 4; }
+    }
+    @media (min-width: 1200px) {
+      .gallery { column-count: 5; }
+    }
+
+    /* Zoomed-out (more columns, even on small screens) */
+    .gallery.zoomed {
+      column-count: 5 !important;
+    }
+
+    .gallery img,
+    .gallery video {
       width: 100% !important;
-      margin: 0 !important;
-      border-radius: 8px !important;
-      display: block !important;
+      margin: 0 0 10px !important;
+      display: block;
+      border-radius: 8px;
     }
   `;
   document.head.appendChild(style);
@@ -54,14 +68,14 @@ document.addEventListener("DOMContentLoaded", () => {
     gallery.classList.toggle("zoomed");
 
     if (gallery.classList.contains("zoomed")) {
-      // Change button icon to single line (zoomed)
+      // Icon changes to single bar
       layoutToggle.innerHTML = `
         <div style="display:flex; flex-direction:column; gap:4px;">
           <span style="width:18px; height:8px; background:#fff; border-radius:2px;"></span>
         </div>
       `;
     } else {
-      // Change back to double line (default)
+      // Back to double bar
       layoutToggle.innerHTML = `
         <div style="display:flex; flex-direction:column; gap:4px;">
           <span style="width:18px; height:8px; background:#fff; border-radius:2px;"></span>
