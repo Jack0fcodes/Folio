@@ -5,9 +5,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const layoutToggle = document.createElement("div");
   layoutToggle.id = "layoutToggle";
   layoutToggle.innerHTML = `
-    <div style="display:flex; flex-direction:column; gap:4px;">
-      <span style="width:18px; height:8px; background:#fff; border-radius:2px;"></span>
-      <span style="width:18px; height:8px; background:#fff; border-radius:2px;"></span>
+    <div class="toggle-grid">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
   `;
   layoutToggle.style.cssText = `
@@ -19,24 +21,18 @@ document.addEventListener("DOMContentLoaded", () => {
     border-radius: 10px;
     cursor: pointer;
     z-index: 2000;
-    transition: background 0.3s;
+    transition: background 0.3s ease;
   `;
-  layoutToggle.addEventListener("mouseenter", () => {
-    layoutToggle.style.background = "rgba(59,130,246,0.9)";
-  });
-  layoutToggle.addEventListener("mouseleave", () => {
-    layoutToggle.style.background = "rgba(30,30,30,0.8)";
-  });
-
   document.body.appendChild(layoutToggle);
 
-  // Inject CSS to control zoom via column-count
+  // Inject CSS for gallery + toggle button
   const style = document.createElement("style");
   style.textContent = `
-    /* Normal masonry (mobile = fewer columns) */
+    /* Normal masonry (mobile first) */
     .gallery {
       column-count: 1;
       column-gap: 10px;
+      transition: column-count 0.3s ease;
     }
     @media (min-width: 600px) {
       .gallery { column-count: 2; }
@@ -48,9 +44,9 @@ document.addEventListener("DOMContentLoaded", () => {
       .gallery { column-count: 5; }
     }
 
-    /* Zoomed-out (more columns, even on small screens) */
+    /* Zoomed-out view */
     .gallery.zoomed {
-      column-count: 5 !important;
+      column-count: 6 !important;
     }
 
     .gallery img,
@@ -59,29 +55,54 @@ document.addEventListener("DOMContentLoaded", () => {
       margin: 0 0 10px !important;
       display: block;
       border-radius: 8px;
+      transition: transform 0.3s ease;
+    }
+    .gallery img:hover,
+    .gallery video:hover {
+      transform: scale(1.02);
+    }
+
+    /* Toggle button grid icon */
+    .toggle-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 4px;
+    }
+    .toggle-grid span {
+      width: 8px;
+      height: 8px;
+      background: #fff;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    /* Single-square mode (when zoomed) */
+    .toggle-grid.single span:nth-child(n+2) {
+      width: 0;
+      height: 0;
+      opacity: 0;
     }
   `;
   document.head.appendChild(style);
+
+  // Hover effect
+  layoutToggle.addEventListener("mouseenter", () => {
+    layoutToggle.style.background = "rgba(59,130,246,0.9)";
+  });
+  layoutToggle.addEventListener("mouseleave", () => {
+    layoutToggle.style.background = "rgba(30,30,30,0.8)";
+  });
 
   // Toggle zoom
   layoutToggle.addEventListener("click", () => {
     gallery.classList.toggle("zoomed");
 
+    const grid = layoutToggle.querySelector(".toggle-grid");
     if (gallery.classList.contains("zoomed")) {
-      // Icon changes to single bar
-      layoutToggle.innerHTML = `
-        <div style="display:flex; flex-direction:column; gap:4px;">
-          <span style="width:18px; height:8px; background:#fff; border-radius:2px;"></span>
-        </div>
-      `;
+      grid.classList.add("single");
     } else {
-      // Back to double bar
-      layoutToggle.innerHTML = `
-        <div style="display:flex; flex-direction:column; gap:4px;">
-          <span style="width:18px; height:8px; background:#fff; border-radius:2px;"></span>
-          <span style="width:18px; height:8px; background:#fff; border-radius:2px;"></span>
-        </div>
-      `;
+      grid.classList.remove("single");
     }
   });
 });
