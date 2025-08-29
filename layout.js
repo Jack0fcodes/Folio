@@ -5,11 +5,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const layoutToggle = document.createElement("div");
   layoutToggle.id = "layoutToggle";
   layoutToggle.innerHTML = `
-    <div class="toggle-grid default">
-      <span class="square"></span>
-      <span class="rectangle"></span>
-      <span class="rectangle"></span>
-      <span class="square"></span>
+    <div class="toggle-grid">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
   `;
   layoutToggle.style.cssText = `
@@ -62,48 +62,26 @@ document.addEventListener("DOMContentLoaded", () => {
       transform: scale(1.02);
     }
 
-    /* Toggle button icons */
+    /* Toggle button grid icon */
     .toggle-grid {
       display: grid;
-      gap: 3px;
-      justify-items: center;
-      align-items: center;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 4px;
     }
-
-    /* Default (Grid) icon: 2 squares + 2 vertical rectangles in 2x2 grid */
-    .toggle-grid.default {
-      grid-template-columns: repeat(2, auto);
-      grid-template-rows: repeat(2, auto);
-    }
-    .toggle-grid.default .square {
-      width: 10px;
-      height: 10px;
-      background: #fff;
-      border-radius: 2px;
-    }
-    .toggle-grid.default .rectangle {
+    .toggle-grid span {
       width: 8px;
-      height: 16px; /* more vertical */
+      height: 8px;
       background: #fff;
       border-radius: 2px;
+      transition: all 0.3s ease;
     }
 
-    /* Zoom (Column) icon: 3 squares + 3 vertical rectangles stacked evenly in a square frame */
-    .toggle-grid.zoom {
-      grid-template-columns: repeat(2, auto);
-      grid-template-rows: repeat(3, auto);
-    }
-    .toggle-grid.zoom .square {
-      width: 9px;
-      height: 9px;
-      background: #fff;
-      border-radius: 2px;
-    }
-    .toggle-grid.zoom .rectangle {
-      width: 7px;
-      height: 14px; /* tall but fits square grid */
-      background: #fff;
-      border-radius: 2px;
+    /* Single-square mode (when zoomed) */
+    .toggle-grid.single span:nth-child(n+2) {
+      width: 0;
+      height: 0;
+      opacity: 0;
     }
   `;
   document.head.appendChild(style);
@@ -122,11 +100,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const grid = layoutToggle.querySelector(".toggle-grid");
     if (gallery.classList.contains("zoomed")) {
-      grid.classList.remove("default");
-      grid.classList.add("zoom");
+      grid.classList.add("single");
     } else {
-      grid.classList.remove("zoom");
-      grid.classList.add("default");
+      grid.classList.remove("single");
     }
   });
 });
