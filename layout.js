@@ -65,13 +65,15 @@ document.addEventListener("DOMContentLoaded", () => {
     /* Toggle button icons */
     .toggle-grid {
       display: grid;
-      gap: 4px;
+      gap: 3px;
+      justify-items: center;
+      align-items: center;
     }
 
     /* Default (Grid) icon: 2 squares + 2 vertical rectangles in 2x2 grid */
     .toggle-grid.default {
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(2, 1fr);
+      grid-template-columns: repeat(2, auto);
+      grid-template-rows: repeat(2, auto);
     }
     .toggle-grid.default .square {
       width: 10px;
@@ -80,26 +82,26 @@ document.addEventListener("DOMContentLoaded", () => {
       border-radius: 2px;
     }
     .toggle-grid.default .rectangle {
-      width: 10px;
-      height: 18px; /* vertical look */
+      width: 8px;
+      height: 16px; /* more vertical */
       background: #fff;
       border-radius: 2px;
     }
 
-    /* Zoom (Column) icon: 3 squares + 3 vertical rectangles stacked */
+    /* Zoom (Column) icon: 3 squares + 3 vertical rectangles stacked evenly in a square frame */
     .toggle-grid.zoom {
-      grid-template-columns: 1fr;
-      grid-auto-rows: auto;
+      grid-template-columns: repeat(2, auto);
+      grid-template-rows: repeat(3, auto);
     }
     .toggle-grid.zoom .square {
-      width: 10px;
-      height: 10px;
+      width: 9px;
+      height: 9px;
       background: #fff;
       border-radius: 2px;
     }
     .toggle-grid.zoom .rectangle {
-      width: 10px;
-      height: 18px; /* vertical still window */
+      width: 7px;
+      height: 14px; /* tall but fits square grid */
       background: #fff;
       border-radius: 2px;
     }
