@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
       gap: 4px;
     }
 
-    /* Default (Grid) icon: 2 squares + 2 rectangles in 2x2 grid */
+    /* Default (Grid) icon: 2 squares + 2 vertical rectangles in 2x2 grid */
     .toggle-grid.default {
       grid-template-columns: repeat(2, 1fr);
       grid-template-rows: repeat(2, 1fr);
@@ -80,13 +80,13 @@ document.addEventListener("DOMContentLoaded", () => {
       border-radius: 2px;
     }
     .toggle-grid.default .rectangle {
-      width: 18px;
-      height: 10px;
+      width: 10px;
+      height: 18px; /* vertical look */
       background: #fff;
       border-radius: 2px;
     }
 
-    /* Zoom (Column) icon: 3 squares + 3 rectangles stacked */
+    /* Zoom (Column) icon: 3 squares + 3 vertical rectangles stacked */
     .toggle-grid.zoom {
       grid-template-columns: 1fr;
       grid-auto-rows: auto;
@@ -98,8 +98,8 @@ document.addEventListener("DOMContentLoaded", () => {
       border-radius: 2px;
     }
     .toggle-grid.zoom .rectangle {
-      width: 20px;
-      height: 10px;
+      width: 10px;
+      height: 18px; /* vertical still window */
       background: #fff;
       border-radius: 2px;
     }
