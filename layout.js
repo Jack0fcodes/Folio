@@ -5,7 +5,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const layoutToggle = document.createElement("div");
   layoutToggle.id = "layoutToggle";
   layoutToggle.innerHTML = `
-    <div class="toggle-bars">
+    <div class="toggle-grid">
+      <span></span>
+      <span></span>
       <span></span>
       <span></span>
     </div>
@@ -60,23 +62,25 @@ document.addEventListener("DOMContentLoaded", () => {
       transform: scale(1.02);
     }
 
-    /* Toggle button icon */
-    .toggle-bars {
-      display: flex;
-      flex-direction: column;
+    /* Toggle button grid icon */
+    .toggle-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
       gap: 4px;
-      align-items: flex-start;
     }
-    .toggle-bars span {
-      width: 18px;
+    .toggle-grid span {
+      width: 8px;
       height: 8px;
       background: #fff;
       border-radius: 2px;
       transition: all 0.3s ease;
     }
-    /* Single-bar mode */
-    .toggle-bars.single span:last-child {
+
+    /* Single-square mode (when zoomed) */
+    .toggle-grid.single span:nth-child(n+2) {
       width: 0;
+      height: 0;
       opacity: 0;
     }
   `;
@@ -94,11 +98,11 @@ document.addEventListener("DOMContentLoaded", () => {
   layoutToggle.addEventListener("click", () => {
     gallery.classList.toggle("zoomed");
 
-    const bars = layoutToggle.querySelector(".toggle-bars");
+    const grid = layoutToggle.querySelector(".toggle-grid");
     if (gallery.classList.contains("zoomed")) {
-      bars.classList.add("single");
+      grid.classList.add("single");
     } else {
-      bars.classList.remove("single");
+      grid.classList.remove("single");
     }
   });
 });
