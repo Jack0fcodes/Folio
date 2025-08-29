@@ -17,14 +17,10 @@ export default function LayoutToggle() {
             fill="currentColor"
             className="w-6 h-6"
           >
-            {/* Top row */}
-            <rect x="2" y="3" width="4" height="5" rx="1.5" />
-            <rect x="8" y="3" width="4" height="7" rx="1.5" />
-            <rect x="14" y="3" width="6" height="5" rx="1.5" />
-            {/* Bottom row */}
-            <rect x="2" y="12" width="4" height="6" rx="1.5" />
-            <rect x="8" y="12" width="4" height="5" rx="1.5" />
-            <rect x="14" y="12" width="6" height="7" rx="1.5" />
+            {/* 3 varied rectangles */}
+            <rect x="2" y="4" width="4" height="14" rx="1.5" />
+            <rect x="9" y="6" width="4" height="10" rx="1.5" />
+            <rect x="16" y="3" width="6" height="18" rx="1.5" />
           </svg>
         ) : (
           // 2 column icon (default)
@@ -34,12 +30,9 @@ export default function LayoutToggle() {
             fill="currentColor"
             className="w-6 h-6"
           >
-            {/* Top row */}
-            <rect x="3" y="3" width="7" height="5" rx="1.5" />
-            <rect x="13" y="3" width="8" height="7" rx="1.5" />
-            {/* Bottom row */}
-            <rect x="3" y="12" width="7" height="7" rx="1.5" />
-            <rect x="13" y="12" width="8" height="5" rx="1.5" />
+            {/* Left shorter, right taller */}
+            <rect x="3" y="7" width="7" height="10" rx="1.5" />
+            <rect x="13" y="3" width="8" height="16" rx="1.5" />
           </svg>
         )}
       </button>
