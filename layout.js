@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
       <span></span>
       <span></span>
       <span></span>
+      <span></span>
+      <span></span>
     </div>
   `;
   layoutToggle.style.cssText = `
@@ -65,23 +67,37 @@ document.addEventListener("DOMContentLoaded", () => {
     /* Toggle button grid icon */
     .toggle-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(2, 1fr);
+      width: 24px;   /* fixed button icon size */
+      height: 24px;  /* fixed button icon size */
       gap: 4px;
+      justify-content: center;
+      align-items: center;
     }
     .toggle-grid span {
-      width: 8px;
-      height: 8px;
       background: #fff;
       border-radius: 2px;
       transition: all 0.3s ease;
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 1 / 1;
     }
 
-    /* Single-square mode (when zoomed) */
-    .toggle-grid.single span:nth-child(n+2) {
-      width: 0;
-      height: 0;
-      opacity: 0;
+    /* Default = 4 squares (2x2) */
+    .toggle-grid {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+    }
+    .toggle-grid span:nth-child(n+5) {
+      display: none; /* hide extra 2 by default */
+    }
+
+    /* Six-square mode (3x2) */
+    .toggle-grid.six {
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+    }
+    .toggle-grid.six span {
+      display: block; /* show all 6 */
     }
   `;
   document.head.appendChild(style);
@@ -100,9 +116,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const grid = layoutToggle.querySelector(".toggle-grid");
     if (gallery.classList.contains("zoomed")) {
-      grid.classList.add("single");
+      grid.classList.add("six");   // show 6 squares
     } else {
-      grid.classList.remove("single");
+      grid.classList.remove("six"); // go back to 4 squares
     }
   });
 });
