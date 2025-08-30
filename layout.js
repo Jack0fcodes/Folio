@@ -18,12 +18,17 @@ document.addEventListener("DOMContentLoaded", () => {
     position: fixed;
     bottom: 20px;
     left: 20px;
+    width: 24px;
+    height: 24px;
     background: rgba(30,30,30,0.8);
     padding: 10px;
     border-radius: 10px;
     cursor: pointer;
     z-index: 2000;
     transition: background 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   `;
   document.body.appendChild(layoutToggle);
 
@@ -66,14 +71,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* Toggle button grid icon */
     .toggle-grid {
+      width: 100%;
+      height: 100%;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       grid-template-rows: repeat(2, 1fr);
-      gap: 4px;
+      gap: 3px;
     }
     .toggle-grid span {
-      width: 8px;
-      height: 8px;
+      width: 6px;
+      height: 6px;
       background: #fff;
       border-radius: 2px;
       transition: all 0.3s ease;
