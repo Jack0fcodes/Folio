@@ -57,20 +57,20 @@ document.addEventListener("DOMContentLoaded", () => {
       margin: 0 0 10px !important;
       display: block;
       border-radius: 8px;
-      transition: transform 0.3s ease; /* kept as is */
+      transition: transform 0.3s ease;
     }
     .gallery img:hover,
     .gallery video:hover {
       transform: scale(1.02);
     }
 
-    /* Toggle button grid icon (default: 4 squares) */
+    /* Toggle button grid icon default (4 squares) */
     .toggle-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       grid-template-rows: repeat(2, 1fr);
       gap: 4px;
-      width: 24px;   /* fixed button size */
+      width: 24px;
       height: 24px;
     }
     .toggle-grid span {
@@ -79,20 +79,21 @@ document.addEventListener("DOMContentLoaded", () => {
       background: #fff;
       border-radius: 2px;
       transition: all 0.3s ease;
-      aspect-ratio: 1 / 1;
     }
-    /* Hide extra spans by default */
+    /* Hide extra 2 spans by default */
     .toggle-grid span:nth-child(n+5) {
-      display: none;
+      opacity: 0;
+      transform: scale(0);
     }
 
-    /* Six-square mode */
+    /* Six-square mode (when zoomed) */
     .toggle-grid.six {
       grid-template-columns: repeat(3, 1fr);
       grid-template-rows: repeat(2, 1fr);
     }
     .toggle-grid.six span {
-      display: block;
+      opacity: 1;
+      transform: scale(1);
     }
   `;
   document.head.appendChild(style);
@@ -105,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
     layoutToggle.style.background = "rgba(30,30,30,0.8)";
   });
 
-  // Toggle zoom (function untouched)
+  // Toggle zoom (same logic, just swap class name)
   layoutToggle.addEventListener("click", () => {
     gallery.classList.toggle("zoomed");
 
