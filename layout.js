@@ -74,8 +74,9 @@ document.addEventListener("DOMContentLoaded", () => {
       width: 100%;
       height: 100%;
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(2, 1fr);
+      place-items: center;
+      grid-template-columns: repeat(2, auto);
+      grid-template-rows: repeat(2, auto);
       gap: 3px;
     }
     .toggle-grid span {
@@ -96,8 +97,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* Six-square mode (when zoomed) */
     .toggle-grid.six {
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: repeat(2, 1fr);
+      grid-template-columns: repeat(3, auto);
+      grid-template-rows: repeat(2, auto);
     }
     .toggle-grid.six span {
       opacity: 1;
