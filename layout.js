@@ -64,23 +64,24 @@ document.addEventListener("DOMContentLoaded", () => {
       transform: scale(1.02);
     }
 
-    /* Toggle button grid icon default (4 squares) */
+    /* Toggle button grid icon */
     .toggle-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       grid-template-rows: repeat(2, 1fr);
       gap: 4px;
-      width: 24px;
-      height: 24px;
     }
     .toggle-grid span {
-      width: 100%;
-      height: 100%;
+      width: 8px;
+      height: 8px;
       background: #fff;
       border-radius: 2px;
       transition: all 0.3s ease;
+      opacity: 1;
+      transform: scale(1);
     }
-    /* Hide extra 2 spans by default */
+
+    /* Hide extra 2 spans initially */
     .toggle-grid span:nth-child(n+5) {
       opacity: 0;
       transform: scale(0);
@@ -106,15 +107,15 @@ document.addEventListener("DOMContentLoaded", () => {
     layoutToggle.style.background = "rgba(30,30,30,0.8)";
   });
 
-  // Toggle zoom (same logic, just swap class name)
+  // Toggle zoom
   layoutToggle.addEventListener("click", () => {
     gallery.classList.toggle("zoomed");
 
     const grid = layoutToggle.querySelector(".toggle-grid");
     if (gallery.classList.contains("zoomed")) {
-      grid.classList.add("six");   // 6 squares
+      grid.classList.add("six");
     } else {
-      grid.classList.remove("six"); // back to 4 squares
+      grid.classList.remove("six");
     }
   });
 });
