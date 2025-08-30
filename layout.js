@@ -57,47 +57,42 @@ document.addEventListener("DOMContentLoaded", () => {
       margin: 0 0 10px !important;
       display: block;
       border-radius: 8px;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease; /* kept as is */
     }
     .gallery img:hover,
     .gallery video:hover {
       transform: scale(1.02);
     }
 
-    /* Toggle button grid icon */
+    /* Toggle button grid icon (default: 4 squares) */
     .toggle-grid {
       display: grid;
-      width: 24px;   /* fixed button icon size */
-      height: 24px;  /* fixed button icon size */
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
       gap: 4px;
-      justify-content: center;
-      align-items: center;
+      width: 24px;   /* fixed button size */
+      height: 24px;
     }
     .toggle-grid span {
+      width: 100%;
+      height: 100%;
       background: #fff;
       border-radius: 2px;
       transition: all 0.3s ease;
-      width: 100%;
-      height: 100%;
       aspect-ratio: 1 / 1;
     }
-
-    /* Default = 4 squares (2x2) */
-    .toggle-grid {
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(2, 1fr);
-    }
+    /* Hide extra spans by default */
     .toggle-grid span:nth-child(n+5) {
-      display: none; /* hide extra 2 by default */
+      display: none;
     }
 
-    /* Six-square mode (3x2) */
+    /* Six-square mode */
     .toggle-grid.six {
       grid-template-columns: repeat(3, 1fr);
       grid-template-rows: repeat(2, 1fr);
     }
     .toggle-grid.six span {
-      display: block; /* show all 6 */
+      display: block;
     }
   `;
   document.head.appendChild(style);
@@ -110,15 +105,15 @@ document.addEventListener("DOMContentLoaded", () => {
     layoutToggle.style.background = "rgba(30,30,30,0.8)";
   });
 
-  // Toggle zoom
+  // Toggle zoom (function untouched)
   layoutToggle.addEventListener("click", () => {
     gallery.classList.toggle("zoomed");
 
     const grid = layoutToggle.querySelector(".toggle-grid");
     if (gallery.classList.contains("zoomed")) {
-      grid.classList.add("six");   // show 6 squares
+      grid.classList.add("six");   // 6 squares
     } else {
-      grid.classList.remove("six"); // go back to 4 squares
+      grid.classList.remove("six"); // back to 4 squares
     }
   });
 });
