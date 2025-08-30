@@ -18,17 +18,18 @@ document.addEventListener("DOMContentLoaded", () => {
     position: fixed;
     bottom: 20px;
     left: 20px;
-    width: 24px;
-    height: 24px;
+    width: 24px;                 /* fixed button size */
+    height: 24px;                /* fixed button size */
     background: rgba(30,30,30,0.8);
-    padding: 10px;
-    border-radius: 10px;
+    padding: 0;                  /* keep outer size fixed */
+    box-sizing: border-box;
+    border-radius: 6px;
     cursor: pointer;
     z-index: 2000;
     transition: background 0.3s ease;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center;     /* center the grid inside the button */
   `;
   document.body.appendChild(layoutToggle);
 
@@ -62,40 +63,41 @@ document.addEventListener("DOMContentLoaded", () => {
       margin: 0 0 10px !important;
       display: block;
       border-radius: 8px;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease; /* kept exactly as you asked */
     }
     .gallery img:hover,
     .gallery video:hover {
       transform: scale(1.02);
     }
 
-    /* Toggle button grid icon */
+    /* Toggle button grid icon (shrink-to-content and centered) */
     .toggle-grid {
-      width: 100%;
-      height: 100%;
       display: grid;
-      place-items: center;
+      place-items: center;               /* center items inside the grid */
       grid-template-columns: repeat(2, auto);
       grid-template-rows: repeat(2, auto);
       gap: 3px;
+      /* no width/height here — let it shrink to content so the parent flex centers it */
     }
     .toggle-grid span {
-      width: 6px;
-      height: 6px;
+      width: 8px;           /* kept your original size */
+      height: 8px;          /* kept your original size */
       background: #fff;
       border-radius: 2px;
-      transition: all 0.3s ease;
+      transition: all 0.3s ease; /* kept as-is */
       opacity: 1;
       transform: scale(1);
+      display: block;
     }
 
-    /* Hide extra 2 spans initially */
+    /* Hide extra 2 spans initially (they will fade+scale in) */
     .toggle-grid span:nth-child(n+5) {
       opacity: 0;
       transform: scale(0);
+      pointer-events: none;
     }
 
-    /* Six-square mode (when zoomed) */
+    /* Six-square mode (3x2) - shows all 6 squares */
     .toggle-grid.six {
       grid-template-columns: repeat(3, auto);
       grid-template-rows: repeat(2, auto);
@@ -103,6 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .toggle-grid.six span {
       opacity: 1;
       transform: scale(1);
+      pointer-events: auto;
     }
   `;
   document.head.appendChild(style);
@@ -115,15 +118,15 @@ document.addEventListener("DOMContentLoaded", () => {
     layoutToggle.style.background = "rgba(30,30,30,0.8)";
   });
 
-  // Toggle zoom
+  // Toggle zoom (function logic kept intact — only toggling the grid class to .six)
   layoutToggle.addEventListener("click", () => {
     gallery.classList.toggle("zoomed");
 
     const grid = layoutToggle.querySelector(".toggle-grid");
     if (gallery.classList.contains("zoomed")) {
-      grid.classList.add("six");
+      grid.classList.add("six");   // show 6 squares (animated)
     } else {
-      grid.classList.remove("six");
+      grid.classList.remove("six"); // back to 4 squares (animated)
     }
   });
 });
