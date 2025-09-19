@@ -35,9 +35,8 @@ nav a:hover {
   border-radius: 8px;
   display: block;
   break-inside: avoid;
+  transition: transform 0.3s;
   cursor: pointer;
-  overflow: hidden; /* ✅ keeps corners rounded when scaling */
-  transition: transform 0.3s ease, border-radius 0.3s ease;
 }
 .gallery img:hover {
   transform: scale(1.05);
