@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
       margin: 0 0 10px !important;
       display: block;
       border-radius: 8px;
-      transition: transform 0.3s ease; /* kept as is */
+      transition: transform 0.3s ease, border-radius 0.3s ease;
     }
     .gallery img:hover,
     .gallery video:hover {
