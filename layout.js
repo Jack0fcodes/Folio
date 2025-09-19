@@ -51,7 +51,19 @@ document.addEventListener("DOMContentLoaded", () => {
       column-count: 6 !important;
     }
 
-    .gallery img,
+    .gallery img {
+      width: 100% !important;
+      margin: 0 0 10px !important;
+      display: block;
+      border-radius: 8px;
+      overflow: hidden; /* ✅ keep rounded corners */
+      -webkit-mask-image: -webkit-radial-gradient(white, black); /* ✅ Safari fix */
+      transition: transform 0.3s ease, border-radius 0.3s ease;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
     .gallery video {
       width: 100% !important;
       margin: 0 0 10px !important;
@@ -59,7 +71,6 @@ document.addEventListener("DOMContentLoaded", () => {
       border-radius: 8px;
       transition: transform 0.3s ease, border-radius 0.3s ease;
     }
-    .gallery img:hover,
     .gallery video:hover {
       transform: scale(1.05);
     }
