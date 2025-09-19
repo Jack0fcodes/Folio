@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     .gallery img:hover,
     .gallery video:hover {
-      transform: scale(1.02);
+      transform: scale(1.05);
     }
 
     /* Toggle button grid icon (default: 4 squares) */
