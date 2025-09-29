@@ -35,11 +35,12 @@ nav a:hover {
   border-radius: 8px;
   display: block;
   break-inside: avoid;
-  transition: transform 0.3s;
+  transition: transform 0.3s, border-radius 0.3s;
   cursor: pointer;
 }
 .gallery img:hover {
   transform: scale(1.05);
+  border-radius: 8px; /* <-- keep rounded corners on hover */
 }
 
 @media (max-width: 800px) {
