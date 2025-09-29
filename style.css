@@ -21,26 +21,31 @@ nav a {
   transition: color 0.3s;
 }
 nav a:hover {
-  color: #3B82F6; /* turn blue on hover */
-  text-decoration: none; /* remove underline */
+  color: #3B82F6;
+  text-decoration: none;
 }
 
 .gallery {
   column-count: 5;
   column-gap: 15px;
 }
-.gallery img {
+.gallery img,
+.gallery video {
   width: 100%;
   margin-bottom: 15px;
-  border-radius: 8px;
+  border-radius: 8px !important; /* ensure it applies even if JS injects style */
   display: block;
   break-inside: avoid;
+  overflow: hidden; /* in case of child elements or videos */
   transition: transform 0.3s, border-radius 0.3s;
   cursor: pointer;
+  background: #222; /* optional: helps show rounded edges on transparent images */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15); /* optional, for visual pop */
 }
-.gallery img:hover {
+.gallery img:hover,
+.gallery video:hover {
   transform: scale(1.05);
-  border-radius: 8px; /* <-- keep rounded corners on hover */
+  border-radius: 8px !important;
 }
 
 @media (max-width: 800px) {
@@ -61,6 +66,6 @@ footer a {
   transition: color 0.3s;
 }
 footer a:hover {
-  color: #3B82F6;/* turn blue on hover */
-  text-decoration: none; /* remove underline */
+  color: #3B82F6;
+  text-decoration: none;
 }
