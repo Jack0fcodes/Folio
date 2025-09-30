@@ -33,14 +33,14 @@ nav a:hover {
 .gallery video {
   width: 100%;
   margin-bottom: 15px;
-  border-radius: 8px !important; /* ensure it applies even if JS injects style */
+  border-radius: 8px !important;
   display: block;
   break-inside: avoid;
-  overflow: hidden; /* in case of child elements or videos */
+  overflow: hidden;
   transition: transform 0.3s, border-radius 0.3s;
   cursor: pointer;
   background: #222; /* optional: helps show rounded edges on transparent images */
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15); /* optional, for visual pop */
+  /* box-shadow removed */
 }
 .gallery img:hover,
 .gallery video:hover {
